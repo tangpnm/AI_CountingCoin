@@ -1,0 +1,157 @@
+<html lang="en" dir="ltr">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>CountingCoin</title>
+
+</head>
+<body>
+<!--60130500220 Try to refresh page automaticaly without refreash page by user to show the new picture 
+        that already save and predict-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script type=text/javascript>
+        $(function() {
+          $('a#test').bind('click', function() {
+            $.getJSON('/background_process_test',
+                function(data) {
+              //do nothing
+              //60130500220 get the total price and amount of coin from google that already predicted
+                    setTimeout(function(){ 
+                        $("#price").html("Total price: " + data.price + " baht");
+                        $("#count").html("Total coin: " + data.count + " coins");
+                        price = data.price
+                    }, 10000);
+                price = price
+            });
+            return false;
+          });
+        });
+</script>
+    <center><h1>Counting Coin For Camera</h1></center>
+    <center><img src="{{ user_image }}" alt="User Image"></center>
+    <center><a href="#" id="test">Process</a></center>
+    <center>
+    <!--60130500220 show price and amount of coin-->
+    <div id="price"></div>
+    <div id="count"></div>
+    </center>
+    <center>
+    <a href="#" id="speak" class="waves-effect waves-light btn">Speak</a>
+    <a href="/" id="speak" class="waves-effect waves-light btn">Back</a>
+    </center>
+    <!--60130500243 have some voice on this page by using price value and let this function change text
+        into speech-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.js"></script>
+    <script>
+    console.log(price)
+        $('#speak').click(function () {
+            
+            var text = "Total price is " + price + "baht";
+            var msg = new SpeechSynthesisUtterance();
+            var voices = window.speechSynthesis.getVoices();
+            msg.voice = voices[0];
+            msg.text = text;
+
+            speechSynthesis.speak(msg);
+        })
+    </script>
+
+</body>
+<!--60130500220 css for this page-->
+<style>
+    * {
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+    /* Style the header */
+    
+    header {
+        margin-top: 20px;
+        background-color: rgb(255, 255, 255);
+        padding: 10px;
+        text-align: center;
+        /* width: 125%; */
+        font-size: 35px;
+        color: rgb(0, 0, 0);
+    }
+    /* Create two columns/boxes that floats next to each other */
+    
+    nav {
+        float: left;
+        width: 20%;
+        height: 300px;
+        /* only for demonstration, should be removed */
+        background: rgb(255, 255, 255);
+        padding: 30px;
+    }
+    
+    img {
+        padding: 5px;
+        margin-left: 20px;
+        margin-top: 20px;
+        width: 20%;
+    }
+    /* Style the list inside the menu */
+    
+    nav ul {
+        list-style-type: none;
+        padding: 50;
+    }
+    
+    article {
+        float: right;
+        margin-top: 20px;
+        padding: 50px;
+        width: 50%;
+        color: rgb(70, 70, 70);
+        /* background-color: #ffffff; */
+        height: 300px;
+        /* only for demonstration, should be removed */
+    }
+    /* Clear floats after the columns */
+    
+    section:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+    
+    a:link,
+    a:visited {
+        background-color: #000000;
+        color: white;
+        padding: 14px 25px;
+        text-align: center;
+        text-decoration: none;
+        display: inline-block;
+        margin: 10px;
+    }
+    
+    a:hover,
+    a:active {
+        background-color: rgb(46, 46, 46);
+    }
+    /* Style the footer */
+    /* footer {
+  background-color: #777;
+  padding: 3px;
+  text-align: center;
+  color: white;
+} */
+    /* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+    
+    @media (max-width: 600px) {
+        nav,
+        article {
+            width: 100%;
+            height: auto;
+        }
+    }
+</style>
+
+</html>

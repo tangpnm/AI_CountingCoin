@@ -1,0 +1,59 @@
+<html>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+<!--<form id="upload-image" action="{{ url_for('uploadImage') }}" method="POST" enctype="multipart/form-data">-->
+<body>
+    <center><h1>Counting Coin</h1></center>
+    <div id="upload-image" enctype="multipart/form-data">
+    <!-- 60130500243
+        Connect camera to browser and can snap picture. When snap it will do convertImg() to convert picture 
+        that has been snap to base64 and png file -->
+    <center><video id="video" width="600" height="450" autoplay ></video></center>
+    <center><a id='snap' onclick='convertImg()' class="btn waves-effect waves-yellow">SNAP</a></center>
+
+    <center><canvas id="myCanvas"></canvas></center>
+
+    <center>
+    <a href="index" id="redirect" class="waves-effect waves-light btn">
+    </a>
+        <!-- 60130500243 
+            Picture that has been convert will show below the camera-->
+          <img id="imgConverted" intrinsicsize="500 x 380" width="570" height="400">
+
+    
+    </center>
+    <!-- <button @click=saveCanvas()></button> -->
+    <!-- 60130500243 This button will send you to predict page-->>
+    <center><a href="index" id="redirect" class="waves-effect waves-light btn"> Next page </a></center>
+</div>
+
+<h2>File Upload</h2>
+    <!--60130500243 
+    user will upload the image ,and image that uploaded will save to coin_photo folder and send to predict page-->
+    <form gref='img' id="upload-form" action="{{ url_for('uploadImage') }}" method="POST" enctype="multipart/form-data">
+        <input id="file" type="file" name="file" accept="image/*" multiple>
+        <button type= "submit" value = "send">SEND</button>
+    </form>
+</body>
+</html>
+<!--60130500230 we use some library to help we to make picture that already snap to canvas by capture45.js file and save 
+the picture that change to png to save on coin_photo floder-->
+<script src="http://hongru.github.io/proj/canvas2image/canvas2image.js"></script>
+<script src="{{url_for('static', filename='capture45.js')}}"></script>
+
+<!--60130500230 convert canvas to base64-->>
+<script>
+    function convertImg() {
+        // BASE64 Image
+        let imageData = convertCanvasToBase64("video", "imgConverted")
+        saveBase64AsFile(imageData, "coin.png")
+        console.log(imageData)
+    }
+</script>
+<!--60130500220 css for this page-->
+<style>
+body {
+        font-family: Arial, Helvetica, sans-serif;
+    }
+
+</style>
